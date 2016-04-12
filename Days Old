@@ -10,16 +10,37 @@
 def daysBetweenDates(year1, month1, day1, year2, month2, day2):
     days1=count_days(year1,month1,day1)
     days2=count_days(year2,month2,day2)
-    return day2-day1
+    return days2-days1
     ##
     # Your code here.
     ##
 
 def count_days(y,m,d):
     daysOfMonths = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    days=(y-1)*365+(y-1)/4+sum(daysOfMonths[m-1])+d
+    days=(y-1)*365+count_leap(y,m)+sum(daysOfMonths[:m-1])+d
+
     return days
 
+def count_leap(y,m):
+    count=0
+    Lis=[x for x in range(1,y) if x%4==0 ]
+    for n in Lis:
+        if judge_leap(n)==True:
+            count+=1
+    if y%4==0 and m>2:
+        if judge_leap(y)==True:
+            count+=1
+    return count
+    
+def judge_leap(n):
+    judge=False
+    if n%100!=0:
+        judge=True
+    elif n%400!=0:
+        pass
+    else:
+        judge=True
+    return judge
 # Test routine
 
 def test():
